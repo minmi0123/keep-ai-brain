@@ -3,7 +3,7 @@
 # 002 hook 시험 명령(echo 파이프)이 PowerShell 5.1 에서 빈 출력
 
 ```yaml
-상태: 미반영
+상태: 반영 (main 5e4f7dc) — 원인 확인: PowerShell 5.1 파이프가 앞에 BOM(U+FEFF)을 붙임. guard.mjs 가 BOM 을 떼고, 시험은 hooks/test-guard.cjs
 날짜: 2026-10-31
 출처: 집 PC 첫 설치. AI 가 PowerShell 툴로 시험
 대상: SETUP.md:108 (echo '...' | node guard.mjs)

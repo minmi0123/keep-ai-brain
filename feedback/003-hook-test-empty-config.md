@@ -3,7 +3,7 @@
 # 003 Q6 "아무것도 안 막음" 이면 hook 동작을 확인할 수 없음
 
 ```yaml
-상태: 미반영
+상태: 반영 (main 5e4f7dc) — guard.mjs 에 자가시험 문자열 keep-ai-brain-guard-selftest 내장
 날짜: 2026-10-31
 출처: 집 PC 첫 설치. 사용자가 Q6 에서 강제 push 차단도 끔 (토이 repo 라 필요 없다고 판단)
 대상: SETUP.md:51 (Q6), SETUP.md:98 (2-5 2번), SETUP.md:110 ("deny 가 나오면 된다")

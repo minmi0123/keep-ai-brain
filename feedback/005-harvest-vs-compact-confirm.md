@@ -3,7 +3,7 @@
 # 005 세션을 끝낼 때 kb-harvest 와 compact-confirm 중 뭘 쓸지 헷갈림
 
 ```yaml
-상태: 미반영
+상태: 반영 (main 5e4f7dc) — compact-confirm 이 kb 후보가 있으면 /kb-harvest 를 이어서 묻게 함
 날짜: 2026-10-31
 출처: 집 PC. 사용자(이 방법론을 만든 본인)가 lotto-lab 세션을 정리하려고 "kb-harvest 쓰면 되는 거지?" 라고 물음
 대상: SETUP.md:160 (4장 사용법 3번), README.md 「하루 흐름」, skills/kb-harvest/SKILL.md·skills/compact-confirm/SKILL.md description
