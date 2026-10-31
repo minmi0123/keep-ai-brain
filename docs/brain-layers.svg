@@ -48,8 +48,8 @@
   <line x1="610" y1="24" x2="610" y2="424" stroke="#94a3b8" stroke-width="2" stroke-dasharray="6 6"/>
 
   <!-- 오른쪽: 업무 단위 산출물 -->
-  <text x="636" y="58" font-size="20" font-weight="700" fill="#0f172a">업무 단위 산출물</text>
-  <text x="636" y="82" font-size="14" fill="#475569">일 하나 = 폴더 하나 · 일이 끝날 때까지</text>
+  <text x="636" y="58" font-size="20" font-weight="700" fill="#0f172a">업무 노트 <tspan font-size="15" font-weight="600" fill="#475569">(작업 폴더)</tspan></text>
+  <text x="636" y="82" font-size="14" fill="#475569">일 하나 = 폴더 하나 · 메모만 (코드 X)</text>
 
   <rect x="660" y="112" width="300" height="62" rx="10" fill="#f0fdf4" stroke="#16a34a" stroke-width="2"/>
   <text x="680" y="138" font-size="15" font-weight="700" fill="#14532d">261031183024 로그인제한</text>
