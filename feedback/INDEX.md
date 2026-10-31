@@ -20,3 +20,4 @@
 | 003 | [003-hook-test-empty-config.md](003-hook-test-empty-config.md) | SETUP.md 2-5 | Q6 "아무것도 안 막음" 이면 차단 동작을 확인할 방법이 없음 | 미반영 |
 | 004 | [004-running-sessions-not-loaded.md](004-running-sessions-not-loaded.md) | SETUP.md 4장 | 설치 전에 열려 있던 세션엔 스킬·CLAUDE.md 가 안 들어감. 대처법 안내 없음 | 미반영 |
 | 005 | [005-harvest-vs-compact-confirm.md](005-harvest-vs-compact-confirm.md) | SETUP.md 4장, README | 사용자가 세션 끝에 kb-harvest 와 compact-confirm 중 뭘 써야 하는지 헷갈림 | 미반영 |
+| 006 | [006-usage-examples.md](006-usage-examples.md) | README, SETUP.md 4장 | 사용 예시 없음. 일 하나 끝낸 뒤 폴더 tree + 대화 시간순 예시 필요 (사용자 의견) | 미반영 |
