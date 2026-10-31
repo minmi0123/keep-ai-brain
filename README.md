@@ -86,6 +86,8 @@ AI 가 먼저 이 PC 를 점검하고(node·git·기존 설정), 꼭 필요한 �
 
 필요한 것: Claude Code, Node.js 18 이상, git
 
+새 버전을 받을 때는 `git pull` 만으로는 부족해요 (설치한 스킬·hook 은 복사본이라서). Claude Code 에게 "keep-ai-brain 폴더의 SETUP.md 업데이트 절 따라 해줘" 라고 하세요.
+
 ## 하루 흐름
 
 ```text

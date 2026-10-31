@@ -174,6 +174,27 @@ node "{KB}/_tools/check-brain.cjs"
 되돌리기: 아래 「되돌리기」 절
 ```
 
+## 업데이트 — 이미 설치한 PC 에서 새 버전 받기
+
+사용자가 "SETUP.md 의 업데이트 절 따라 해줘" 라고 하면 한다. **`git pull` 만으로는 설치본이 안 바뀐다** — 2장에서 스킬·hook·점검 도구를 `{CONFIG}`·`{KB}` 로 복사했기 때문이다 (자동 작업만 `{REPO}/scheduler` 를 직접 가리켜서 pull 로 바뀐다).
+
+1. 경로: `{CONFIG}/CLAUDE.md` 「keep-ai-brain 경로」 표에서 `{KB}`·`{TASKS}`·`{MEMORY}`. 이름 바꿔 설치한 스킬(`kab-*`)이 있는지 `{CONFIG}/skills/` 를 본다
+2. `git -C "{REPO}" rev-parse HEAD` 를 적어 두고 `git -C "{REPO}" pull` → `git -C "{REPO}" diff --stat {적어 둔 해시} HEAD` 로 바뀐 파일을 본다. 이미 pull 했으면 설치본과 `{REPO}` 를 파일마다 비교한다
+3. 바뀐 것만 설치본에 덮어쓴다. 덮어쓰기 전에 설치본이 `{REPO}` 의 **옛 버전과 다르면**(사용자가 손으로 고친 것) diff 를 보여 주고 묻는다
+
+| {REPO} | 설치본 | 어떻게 |
+|---|---|---|
+| `hooks/guard.mjs` | `{CONFIG}/hooks/keep-ai-brain/guard.mjs` | 덮어쓴다 |
+| `skills/{이름}/` | `{CONFIG}/skills/{이름}/` | 덮어쓴다. 이름 바꿔 설치했으면 2-3 의 3번처럼 이름·부르는 곳도 바꾼다 |
+| `kb-tools/*.cjs` | `{KB}/_tools/` | 덮어쓴다 |
+| `kb-tools/config.json` | `{KB}/_tools/config.json` | **덮어쓰지 않는다** (사용자 값). 새 키가 생겼으면 그 키만 node 로 더한다 |
+| `hooks/guard.config.json` | 같은 이름 | **덮어쓰지 않는다** (사용자가 고른 차단 목록) |
+| `templates/CLAUDE.md` | `{CONFIG}/CLAUDE.md` 의 keep-ai-brain 절 | 바뀐 줄만 보여 주고 묻는다. 경로 표는 그대로 |
+| `templates/kb/*` · `templates/memory/*` · `templates/task/*` | — | 건드리지 않는다 (이미 사용자 데이터). 새 양식은 다음에 만드는 작업 폴더부터 |
+
+4. 확인: `node "{REPO}/hooks/test-guard.cjs" "{CONFIG}/hooks/keep-ai-brain/guard.mjs" --example` 가 전부 통과, `node "{KB}/_tools/check-brain.cjs"` 가 설치 때와 같은 결과. 보고는 "바꾼 파일 / 그대로 둔 파일 / 사용자에게 물은 것" 표로
+5. "Claude Code 를 새로 시작하세요" 라고 말한다 — 스킬·hook 은 새 세션부터 바뀐다
+
 ## 되돌리기
 
 | 무엇 | 방법 |
