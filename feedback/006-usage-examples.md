@@ -19,26 +19,46 @@
 
 토이 프로젝트에서 "로또 통계 설명 문구 추가" 를 한 세션 했다고 치면:
 
+핵심: 코드는 원래 자리(각 git repo)에 그대로 있고, brain 은 그 옆에서 "기억" 만 맡는다. brain 안에 코드를 복사하지 않는다.
+
 ```text
-C:/study/brain/
-├── kb/                                  ← 계속 쌓이는 사실 (AI 의 뇌)
-│   ├── INDEX.md                         ← 입구. 문서마다 한 줄 안내
-│   ├── overview/glossary.md             ← 업무 용어
-│   ├── patterns/golden-files.md         ← 따라 쓸 모범 파일
-│   ├── trouble/
-│   │   └── windows-ps-pipe-json.md      ← kb-harvest 가 새로 만든 함정 기록
-│   ├── ops/open-questions.md            ← [확인필요] 자동 모음 (손으로 안 고침)
-│   └── _tools/                          ← 점검 도구 · reports/latest.md (주간 리포트)
-├── tasks/                               ← 일 하나 = 폴더 하나
-│   └── 261031143000lotto-lab-통계설명/
-│       ├── 이어하기.md                  ← 지금 상태만 (compact-confirm 이 덮어씀)
-│       ├── 이력.md                      ← 경위 (compact-confirm 이 쌓음)
-│       └── 기준표.md                    ← ①~⑤ 전체로 했을 때만 (/criteria)
-└── (memory 는 Claude 설정 폴더 쪽)
-    ~/.claude/projects/c--study/memory/
-    ├── MEMORY.md                        ← 한 줄 목차 (매 세션 자동으로 읽힘)
-    └── lotto-lab-neutral-copy.md        ← 사용자 성향·작업 규칙 하나 = 파일 하나
+C:/study/
+├── toy/
+│   └── lotto-lab/                       ← 실제 작업 폴더 (코드, git minmi0123/lotto-lab)
+│       ├── .git/
+│       ├── app/                         ← React + Vite. 개발(②)은 여기서 하고 여기에 커밋·push
+│       └── ...                          ← 이 repo 안에는 keep-ai-brain 파일을 두지 않는다
+│
+└── brain/                               ← keep-ai-brain (repo 들과 따로, kb 만 로컬 git)
+    ├── kb/                              ← 계속 쌓이는 사실 (AI 의 뇌). 여러 repo 공용
+    │   ├── INDEX.md                     ← 입구. 문서마다 한 줄 안내
+    │   ├── overview/glossary.md         ← 업무 용어
+    │   ├── patterns/golden-files.md     ← 따라 쓸 모범 파일 (예: lotto-lab/app/src/... 경로를 가리킴)
+    │   ├── trouble/
+    │   │   └── windows-ps-pipe-json.md  ← kb-harvest 가 새로 만든 함정 기록
+    │   ├── ops/open-questions.md        ← [확인필요] 자동 모음 (손으로 안 고침)
+    │   └── _tools/                      ← 점검 도구 · reports/latest.md (주간 리포트)
+    └── tasks/                           ← 일 하나 = 폴더 하나 (코드 아님, 작업 기록)
+        └── 261031143000lotto-lab-통계설명/
+            ├── 이어하기.md              ← 지금 상태만. 첫 줄에 대상 repo 경로 C:/study/toy/lotto-lab
+            ├── 이력.md                  ← 경위 (compact-confirm 이 쌓음)
+            └── 기준표.md                ← ①~⑤ 전체로 했을 때만 (/criteria)
+
+C:/Users/godgo/.claude/projects/c--study/memory/   ← memory 층 (Claude 설정 폴더 쪽, 로컬 git)
+├── MEMORY.md                            ← 한 줄 목차 (매 세션 자동으로 읽힘)
+└── lotto-lab-neutral-copy.md            ← 사용자 성향·작업 규칙 하나 = 파일 하나
 ```
+
+어디에 커밋되나:
+
+| 폴더 | git | 누가 커밋 |
+|---|---|---|
+| `toy/lotto-lab` | 원격 repo (push 함) | 개발할 때 AI·사용자 |
+| `brain/kb` | 로컬 git (push 없음) | kb-harvest |
+| `brain/tasks` | git 아님 | — |
+| memory | 로컬 git (push 없음) | 매일 19:30 자동 스냅숏 |
+
+(README 에 넣을 때는 경로를 `~/projects/my-app`, `~/brain/...` 같은 일반 예시로 바꾼다)
 
 ## 제안 2: 대화 예시 (같은 일을 시간순으로)
 
