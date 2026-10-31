@@ -1,0 +1,9 @@
+# keep-ai-brain — macOS·Linux 용 cron 예시. `crontab -e` 로 열어 아래 두 줄을 경로만 바꿔 붙인다.
+# node·git 은 절대 경로로 (cron 은 PATH 가 짧다). `which node`, `which git` 으로 확인.
+#
+# 매일 19:30 — 메모리 폴더에 바뀐 게 있으면 커밋 (push 안 함)
+30 19 * * * /usr/local/bin/node /path/to/keep-ai-brain/scheduler/memory-snapshot.cjs /path/to/memory /usr/bin/git
+# 매주 월 09:30 — 뇌 점검 리포트 → <kb>/_tools/reports/latest.md
+30 9 * * 1 /usr/local/bin/node /path/to/keep-ai-brain/scheduler/weekly-check.cjs /path/to/kb
+#
+# 주의: cron 은 그 시각에 컴퓨터가 꺼져 있으면 건너뛴다. 노트북이면 macOS 는 launchd, Linux 는 anacron 을 고려

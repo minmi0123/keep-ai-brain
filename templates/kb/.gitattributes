@@ -1,0 +1,4 @@
+# 줄바꿈을 LF 로 고정 — Windows 의 core.autocrlf=true 여도 checkout·stash 가 CRLF 로 바꾸지 않게
+* text=auto eol=lf
+*.bat text eol=crlf
+*.cmd text eol=crlf

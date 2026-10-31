@@ -1,0 +1,30 @@
+{
+  "_설명": "keep-ai-brain 점검 도구 설정. 설치할 때 AI 가 SETUP.md 를 따라 채운다. 빈 문자열이면 그 점검은 건너뛴다.",
+  "kbDirs": ["overview", "patterns", "ops", "trouble"],
+  "requiredFrontmatter": ["title", "category", "tags", "summary", "created", "updated"],
+  "limits": {
+    "docKB": 50,
+    "indexKB": 40,
+    "indexRowChars": 150
+  },
+  "issues": {
+    "enabled": false,
+    "heading": "결함|이슈",
+    "notHeading": "결함\\s*아님|이슈\\s*아님"
+  },
+  "memory": {
+    "dir": "",
+    "indexFile": "MEMORY.md",
+    "indexMaxLines": 150,
+    "indexRowChars": 150,
+    "fileKB": 8,
+    "staleProjectDays": 30
+  },
+  "tasks": {
+    "dir": "",
+    "handoffFile": "이어하기.md",
+    "historyFile": "이력.md",
+    "handoffKB": 20,
+    "staleDays": 14
+  }
+}

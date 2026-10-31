@@ -1,0 +1,29 @@
+{
+  "_설명": "guard.mjs 가 막을 것. 들어 있는 항목은 전부 예시 — 설치할 때 AI 가 사용자에게 물어 고른 것만 남긴다. pattern 은 정규식(JSON 이라 백슬래시는 두 번), flags 기본 i(대소문자 무시). 막을 게 없으면 빈 배열로.",
+  "commands": [
+    {
+      "pattern": "git\\s+push\\b.*(\\s--force(?!-with-lease)|\\s-[a-zA-Z]*f[a-zA-Z]*\\b|\\s\\+\\S)",
+      "reason": "강제 push(--force, -f, +브랜치)는 금지예요. 꼭 필요하면 --force-with-lease 를 쓰고, 먼저 사용자에게 물어보세요."
+    },
+    {
+      "pattern": "prod-db\\.example\\.com",
+      "reason": "운영 DB 접속은 금지예요. 개발 DB 를 쓰세요."
+    },
+    {
+      "pattern": "10\\.0\\.0\\.100",
+      "reason": "운영 DB 접속은 금지예요. 개발 DB 를 쓰세요."
+    }
+  ],
+  "commitMessage": [
+    {
+      "pattern": "do not merge|wip:",
+      "reason": "커밋 메시지에 임시 표시(WIP·DO NOT MERGE)가 있어요. 메시지를 고쳐서 다시 커밋하세요."
+    }
+  ],
+  "protectedPaths": [
+    {
+      "pattern": "/readonly-copy/",
+      "reason": "이 폴더는 분석 전용(읽기만)이에요. 수정·커밋은 개발용 폴더에서 하세요."
+    }
+  ]
+}

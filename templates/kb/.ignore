@@ -1,0 +1,4 @@
+# ripgrep(Grep) 검색에서 뺄 것 — 자동 목록은 원문과 같은 줄이라 검색 결과가 두 번 나온다. 목록은 직접 열어서 본다
+ops/open-questions/
+ops/issues/
+_tools/reports/
