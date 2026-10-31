@@ -31,7 +31,7 @@ AI 의 기억을 세 층으로 나눠 파일에 둔다. 대화는 사라져도 �
 
 | 언제 | 할 일 |
 |---|---|
-| compact·`/clear`·새 세션 전 | `/compact-confirm` — 이어하기·이력 갱신, 대화에만 있는 것을 파일로 |
+| compact·`/clear`·새 세션 전 | `/compact-confirm` — 이어하기·이력 갱신, 대화에만 있는 것을 파일로. kb 에 남길 사실이 있으면 `/kb-harvest` 를 이어서 할지 묻는다 |
 | 다른 일에도 쓸 사실이 생겼을 때 | `/kb-harvest` — kb 에 넣고 커밋 |
 | kb 를 고친 뒤 | `node {KB}/_tools/check-kb.cjs` |
 | 일이 끝났을 때 | 이어하기.md 에 `상태: 완료`, kb 에 옮겼으면 `kb 반영: 완료` |

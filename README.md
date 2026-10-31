@@ -44,16 +44,35 @@ keep-ai-brain 은 그다음 문제를 다뤄요. **"몇 달 쌓인 지식이 어
 
 정보는 스킬을 타고 층 사이를 옮겨 다녀요. 대화 → 작업 폴더는 `/compact-confirm`, 작업 폴더 → kb 는 `/kb-harvest`.
 
+일 하나를 끝낸 뒤의 모습이에요. 코드는 원래 저장소에 그대로 있고, brain 은 그 옆에서 기억만 맡아요.
+
+```text
+~/projects/my-app/                  ← 코드 (원래 git 저장소). 개발·커밋·push 는 여기서
+~/brain/
+├── kb/                             ← 계속 쌓이는 사실. 여러 프로젝트 공용 · 로컬 git
+│   ├── INDEX.md                    ← 입구. 문서마다 한 줄 안내
+│   ├── overview/  patterns/  ops/
+│   ├── trouble/windows-ps-pipe.md  ← /kb-harvest 가 새로 만든 함정 기록
+│   └── _tools/                     ← 점검 도구 · reports/latest.md (주간 리포트)
+└── tasks/                          ← 업무 노트 · git 아님
+    └── 261031143000my-app-통계설명/
+        ├── 이어하기.md              ← 지금 상태만 (대상 저장소: ~/projects/my-app)
+        └── 이력.md                  ← 경위
+~/.claude/projects/…/memory/        ← MEMORY.md(한 줄 목차) + 메모리 하나 = 파일 하나 · 로컬 git
+```
+
+같은 일을 대화 순서로 따라가 보려면 → [docs/example.md](docs/example.md)
+
 ## 들어 있는 것
 
 | 폴더 | 내용 |
 |---|---|
 | `skills/` | **consult** 질문 먼저 · **kb-harvest** 대화에서 kb 로 · **compact-confirm** compact 전 점검과 이어하기 · **criteria** 개발 전 판정 기준표 · **critic** 근거 있는 지적만 남기는 비판 검토 |
 | `kb-tools/` | `check-brain` (세 층 한 번에) · `check-kb` · `check-memory` · `check-tasks` · `collect-questions` · `collect-issues` |
-| `hooks/` | `guard.mjs` — 운영 DB 접속, 보호 폴더 수정 같은 것을 실행 직전에 차단 (막을 대상은 설정 파일로) |
+| `hooks/` | `guard.mjs` — 운영 DB 접속, 보호 폴더 수정 같은 것을 실행 직전에 차단 (막을 대상은 설정 파일로) · `test-guard.cjs` 시험 |
 | `templates/` | 빈 kb, CLAUDE.md 블록, 메모리 목차, 이어하기·이력 양식 |
 | `scheduler/` | 메모리 매일 자동 커밋, 주간 뇌 점검 리포트 (Windows 작업 스케줄러 · cron) |
-| `docs/` | [why.md](docs/why.md) 규칙이 생긴 이유 · [windows-pitfalls.md](docs/windows-pitfalls.md) Windows 에서 조용히 깨지는 것들 |
+| `docs/` | [example.md](docs/example.md) 일 하나를 처음부터 끝까지 · [why.md](docs/why.md) 규칙이 생긴 이유 · [windows-pitfalls.md](docs/windows-pitfalls.md) Windows 에서 조용히 깨지는 것들 |
 
 ## 설치
 
@@ -78,10 +97,18 @@ AI 가 먼저 이 PC 를 점검하고(node·git·기존 설정), 꼭 필요한 �
        ├─ 전체: ① /criteria 기준표 → ② 개발 → ③ 전/후 비교 → ④ /critic → ⑤ 사람 확인
        └─ 검증만: ② 개발 → ③ 또는 ④ → ⑤ 사람 확인
        ▼
-세션 끝 ─▶ /compact-confirm   이어하기·이력 갱신, 대화에만 있는 것을 파일로
-       ─▶ /kb-harvest        다른 일에도 쓸 사실만 kb 로 (커밋까지)
+세션 끝 ─▶ "compact 해도 돼?"
+       │   /compact-confirm   이 일의 지금 상태·경위를 작업 폴더에 (이어하기·이력)
+       └─▶ /kb-harvest        다른 일에도 쓸 사실이 있으면 kb 로 (커밋까지) — compact-confirm 이 이어서 할지 물어봄
 매주   ─▶ check-brain        세 층 자동 점검 → 리포트 (AI 안 부름 · 토큰 0)
 ```
+
+세션 끝에는 "compact 해도 돼?" 하나만 기억하면 돼요.
+
+| 스킬 | 남기는 것 | 어디에 |
+|---|---|---|
+| `/compact-confirm` | **이 일**의 지금 상태·다음 할 일·경위 | 작업 폴더 `이어하기.md`·`이력.md` |
+| `/kb-harvest` | **다른 일에도** 다시 쓸 사실 — 확인한 동작, 함정, 바로잡은 사실 | kb |
 
 ①~⑤ 전체는 토큰과 시간이 많이 들어요. 돈·개인정보·권한·운영 데이터처럼 위험한 일에만 쓰고, 가벼운 일은 검증만 하세요. 그래서 매번 물어봐요.
 

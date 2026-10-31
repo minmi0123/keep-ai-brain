@@ -45,6 +45,7 @@ tr -cd '\r' < 파일.md | wc -c    # 0 이면 LF
 | `ConvertFrom-Json -AsHashtable` | 없음. PSCustomObject 로 받음 |
 | `.ps1` 안의 한글이 깨짐 | PS 5.1 은 스크립트를 ANSI 로 읽음 → 본문은 ASCII 만, 한글 경로는 인자로 |
 | `Set-Content`·`Add-Content` 로 쓴 파일이 다른 도구에서 깨짐 | 기본 ANSI → `-Encoding utf8` |
+| `'{"a":1}' \| node x.js` 로 JSON 을 넘겼더니 받는 쪽이 파싱 실패 (조용히 통과하게 짠 hook 이면 "출력 없음" 만 보임) | 파이프 앞에 BOM(`U+FEFF`)이 붙어 옴 (출력 인코딩이 BOM 붙은 UTF-8 인 환경). 받는 쪽에서 `.replace(/^﻿/, '')`, 시험 입력은 node 의 `spawnSync(…, { input })` 로 (`hooks/test-guard.cjs`) |
 | `$ErrorActionPreference = "Stop"` 인 스크립트가 정상 프로그램 실행 중 멈춤 | 네이티브 프로그램이 stderr 에 경고 한 줄만 써도 종료 오류가 됨 → 그 구간만 Stop 을 풀고 `$LASTEXITCODE` 로 판단 |
 | `& .\x.ps1` 뒤 `$LASTEXITCODE` 가 성공인데도 실패처럼 보임 | 스크립트가 성공 때 `exit` 를 안 부르면 값이 안 바뀜 → 판단 전에 `$global:LASTEXITCODE = 0` |
 | node 에서 `powershell -Command "& x.ps1"` → 실행 정책 오류 | 인자에 `-ExecutionPolicy Bypass` (그 프로세스에만) |
