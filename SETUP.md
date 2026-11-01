@@ -165,7 +165,7 @@ node "{KB}/_tools/check-brain.cjs"
 1. Claude Code 를 새로 시작하세요 (스킬·hook 이 새 세션부터 켜져요). 새 세션에서 "`echo keep-ai-brain-guard-selftest` 실행해 봐" 라고 하면 안전장치가 막는지 볼 수 있어요
 2. 평소처럼 요청하면 AI 가 먼저 질문해요. 바로 하고 싶으면 "바로 해"
 3. 세션을 끝내거나 compact 하기 전에 "compact 해도 돼?" — 이 일의 진행 상황을 작업 폴더에 남기고, 다른 일에도 쓸 사실이 있으면 kb 에 넣을지(/kb-harvest) 이어서 물어봐요. 하나만 기억하면 돼요
-4. (Q7 에서 주간 점검을 골랐을 때만) 월요일에 점검 리포트가 생기면 "점검 리포트 처리해줘"
+4. (Q7 에서 주간 점검을 골랐을 때만) 매주 월요일에 점검 리포트가 생겨요. 처리 안 된 문제가 있으면 다음 세션에서 AI 가 먼저 알려 줘요. "처리해줘" 하면 고치고, 경고는 고칠지 물어봐요
 
 설치 전에 열려 있던 세션: 스킬·CLAUDE.md 블록이 안 보일 수 있어요. 그 세션의 대화를 남기고 싶으면 그 세션에서 "`{CONFIG}/CLAUDE.md` 의 keep-ai-brain 절과 `{CONFIG}/skills/compact-confirm/SKILL.md` 읽고 그대로 따라 해줘" 라고 하면 돼요 (kb-harvest 도 같은 방법)
 

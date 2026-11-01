@@ -11,13 +11,13 @@
 const path = require('path');
 const { spawnSync } = require('child_process');
 
-let failed = 0;
+const failed = [];
 for (const [title, script] of [['kb', 'check-kb.cjs'], ['메모리', 'check-memory.cjs'], ['작업 폴더', 'check-tasks.cjs']]) {
   console.log('');
   console.log('########## ' + title + ' ##########');
   const r = spawnSync(process.execPath, [path.join(__dirname, script)], { stdio: 'inherit' });
-  if (r.status !== 0) failed++;
+  if (r.status !== 0) failed.push(title);
 }
 console.log('');
-console.log(failed ? '문제 있는 층: ' + failed + '개 — 위 "문제" 를 먼저 고치기' : '세 층 모두 문제 없음 (경고는 위에서 확인)');
-process.exit(failed ? 1 : 0);
+console.log(failed.length ? `문제 있는 층: ${failed.length}개 (${failed.join(', ')}) — 위 "문제" 를 먼저 고치기` : '세 층 모두 문제 없음 (경고는 위에서 확인)');
+process.exit(failed.length ? 1 : 0);

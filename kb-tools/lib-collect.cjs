@@ -9,7 +9,9 @@ const path = require('path');
 const { execFileSync } = require('child_process');
 
 const KB = path.resolve(__dirname, '..');
-const today = new Date().toISOString().slice(0, 10);
+// 로컬 날짜 YYYY-MM-DD (toISOString 은 UTC 라 한국 오전 9시 전이면 하루 전 날짜가 된다)
+const localDate = d => [d.getFullYear(), d.getMonth() + 1, d.getDate()].map(n => String(n).padStart(2, '0')).join('-');
+const today = localDate(new Date());
 
 // 설정 — config.json 이 없거나 키가 빠지면 기본값
 const DEFAULTS = {
@@ -70,7 +72,7 @@ function blameDates(repo, file) {
     const h = /^[0-9a-f]{40} \d+ (\d+)/.exec(l);
     if (h) { line = +h[1]; uncommitted = /^0{40}/.test(l); continue; }
     if (l.startsWith('author-time ')) time = +l.slice(12);
-    if (l.startsWith('\t')) dates[line] = (uncommitted ? today : new Date(time * 1000).toISOString()).slice(5, 10);
+    if (l.startsWith('\t')) dates[line] = (uncommitted ? today : localDate(new Date(time * 1000))).slice(5, 10);
   }
   return dates;
 }
