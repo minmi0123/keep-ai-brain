@@ -2,7 +2,7 @@
 title: 따라 할 기준 파일
 category: patterns
 tags: [기준파일, 패턴, 컨벤션, 새코드, 골든파일]
-summary: 새 코드를 쓸 때 따라 할 기존 파일:줄과 베끼지 말아야 할 것. 작업 종류별. /criteria 5장이 읽는다
+summary: 새 코드를 쓸 때 따라 할 기존 파일:줄과 베끼지 말아야 할 것. 작업 종류별
 source: 코드 실측 (줄마다 커밋)
 source_checked: YYYY-MM-DD
 created: YYYY-MM-DD
@@ -11,7 +11,7 @@ updated: YYYY-MM-DD
 
 # 따라 할 기준 파일
 
-> 언제 읽나: 새 API·화면·쿼리·배치를 쓰기 전, 기준표 5장을 채울 때.
+> 언제 읽나: 새 API·화면·쿼리·배치를 쓰기 전.
 
 **먼저 볼 주의**
 - AI 는 주변 코드를 베낀다. 나쁜 예를 베끼지 않게 "베끼지 말 것" 을 같이 적는다

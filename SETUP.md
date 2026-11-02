@@ -29,11 +29,11 @@ Windows: Bash heredoc 안에 백슬래시 경로를 넣지 않는다 — 조용�
 | 2 | Node.js | `node -v` | 18 이상. 없으면 설치 안내하고 멈춘다 (점검 도구·hook·스케줄러가 node 로 돈다) |
 | 3 | git | `git --version`, `git config --global user.name`, `user.email` | 없으면 설치 안내하고 멈춘다. 이름·이메일이 비면 1장에서 묻는다 |
 | 4 | Claude Code 설정 폴더 `{CONFIG}` | 환경변수 `CLAUDE_CONFIG_DIR` 이 있으면 그 값, 없으면 홈의 `.claude` | 폴더가 있어야 한다. `{CONFIG}/skills`·`{CONFIG}/CLAUDE.md`·`{CONFIG}/settings.json` 이 있는지 적어 둔다 |
-| 5 | 같은 이름 스킬 | `{CONFIG}/skills/` 에 consult · kb-harvest · compact-confirm · criteria · critic 이 있나 | 있으면 1장에서 묻는다 (건너뛰기 / 덮어쓰기 / 이름 바꿔 설치) |
+| 5 | 같은 이름 스킬 | `{CONFIG}/skills/` 에 kb-harvest · compact-confirm 이 있나 | 있으면 1장에서 묻는다 (건너뛰기 / 덮어쓰기 / 이름 바꿔 설치) |
 | 6 | 메모리 폴더 | 이 세션 지시문에 지속 메모리 폴더 경로가 나와 있나 (예: `{CONFIG}/projects/…/memory`) | 있으면 그 폴더를 `{MEMORY}` 로 쓴다. 없으면 1장에서 묻는다 |
 | 7 | 이미 쓰는 지식 폴더 | `{CONFIG}/CLAUDE.md` 와 지금 프로젝트의 `CLAUDE.md` 에 kb·notes·docs 같은 지식 폴더 언급이 있나 | 있으면 1장에서 "새로 만들기 / 그 폴더를 kb 로" 를 묻는다 |
 | 8 | 웹 화면이 있는 프로젝트인가 | 지금 폴더나 사용자 CLAUDE.md 에 프론트엔드 흔적(package.json 의 react·vue·next, html 등) | 있으면 9 를 권장으로 올린다 |
-| 9 | Playwright MCP | `claude mcp list` (설정 폴더에 `.claude.json` 등이 없으면 새로 만들 수 있다 — 보통은 이미 있다) | 웹 프로젝트면 **강력 권장** — ③ 전/후 비교에서 AI 가 화면을 직접 캡처하고 확인한다. 1장에서 묻는다 |
+| 9 | Playwright MCP | `claude mcp list` (설정 폴더에 `.claude.json` 등이 없으면 새로 만들 수 있다 — 보통은 이미 있다) | 웹 프로젝트면 **권장** — AI 가 고친 화면을 직접 열어 캡처하고 확인할 수 있다. 1장에서 묻는다 |
 | 10 | (Windows) 줄바꿈 설정 | `git config --global core.autocrlf` | `true` 여도 괜찮다 — kb·메모리 저장소에 `.gitattributes` 로 LF 를 고정한다. 전역 설정은 바꾸지 않는다 |
 | 11 | 기존 hook | `{CONFIG}/settings.json` 의 `hooks` 에 이미 있는 항목, 그 명령이 가리키는 파일이 있는지 | 고치지 않는다. 파일이 없는 hook 이 있으면 보고만 한다 |
 
@@ -46,12 +46,21 @@ Windows: Bash heredoc 안에 백슬래시 경로를 넣지 않는다 — 조용�
 | Q1 | kb(지식 폴더)를 어디에 둘까요? | 홈 아래 `brain/kb` (예: `~/brain/kb`, Windows `C:\Users\{이름}\brain\kb`). 0장 7 에서 찾은 폴더가 있으면 그것도 선택지로 |
 | Q2 | 작업 폴더(일 하나 = 폴더 하나, 그 일의 메모를 두는 곳 — 코드 저장소가 아니에요)는 어디에 둘까요? 프로젝트 저장소 **안**을 고르면 메모가 커밋에 섞인다고 말하고 밖을 권한다 | kb 폴더와 **나란히** 둔 `tasks` (kb 가 `~/brain/kb` 면 `~/brain/tasks`, 기존 폴더 `D:/notes` 를 kb 로 골랐으면 `D:/tasks`) |
 | Q3 | (0장 6 에서 못 찾았을 때만) 메모리 폴더는 어디에 둘까요? | kb 와 나란히 둔 `memory` |
-| Q4 | (0장 5 에서 겹칠 때만) 같은 이름 스킬이 있어요. 어떻게 할까요? 선택지마다 영향을 같이 말한다 — **건너뛰면** keep-ai-brain 흐름(CLAUDE.md 블록·다른 스킬)이 부르는 `/{이름}` 이 사용자의 옛 스킬로 가서 흐름이 어긋난다 · **덮어쓰면** 옛 스킬이 없어진다(백업은 `{CONFIG}/backups/keep-ai-brain/` 에 남긴다) · **이름 바꿔 설치**하면 둘 다 남는다 | **이름 바꿔 설치** (`kab-{이름}`, 예 `kab-consult`) — 기존 것도 지키고 흐름도 맞는다 |
+| Q4 | (0장 5 에서 겹칠 때만) 같은 이름 스킬이 있어요. 어떻게 할까요? 선택지마다 영향을 같이 말한다 — **건너뛰면** keep-ai-brain 흐름(CLAUDE.md 블록·다른 스킬)이 부르는 `/{이름}` 이 사용자의 옛 스킬로 가서 흐름이 어긋난다 · **덮어쓰면** 옛 스킬이 없어진다(백업은 `{CONFIG}/backups/keep-ai-brain/` 에 남긴다) · **이름 바꿔 설치**하면 둘 다 남는다 | **이름 바꿔 설치** (`kab-{이름}`, 예 `kab-compact-confirm`) — 기존 것도 지키고 흐름도 맞는다 |
 | Q5 | 남의 코드나 레거시를 분석하면서 문제를 기록할 일이 많나요? (이슈 대장) | 아니면 "끔". 레거시 분석·인수인계면 "켬" |
 | Q6 | AI 가 절대 하면 안 되는 명령이 있나요? 예: 운영 DB 주소, 강제 push, 읽기 전용 폴더 | "운영 DB 주소가 있으면 알려 주세요. 없으면 강제 push 만 막을게요" |
-| Q7 | 자동 작업을 등록할까요? (1) 메모리 매일 자동 커밋 (2) 매주 뇌 점검 리포트 — 둘 다 / 하나만 / 안 함 | 둘 다 |
+| Q7 | 자동 작업을 등록할까요? **PC 에 예약 작업이 생기는 것**이라 무엇이 언제 무엇을 하는지 먼저 보여 준다 (아래 표). 둘 다 / 하나만 / 안 함 | 둘 다 |
 | Q8 | (0장 8·9 에서 해당할 때만) Playwright MCP 를 설치할까요? | 웹 프로젝트면 예 |
 | Q9 | (0장 3 에서 비었을 때만) git 커밋에 쓸 이름·이메일 | — |
+
+Q7 을 물을 때 보여 줄 표 (Windows 는 작업 스케줄러, macOS·Linux 는 cron):
+
+| 작업 이름 | 언제 | 하는 일 | 하지 않는 일 | 지우는 법 |
+|---|---|---|---|---|
+| `KeepAiBrainMemorySnapshot` | 매일 19:30 (꺼져 있었으면 켠 뒤 바로) | 메모리 폴더에 바뀐 게 있으면 그 폴더 git 에 커밋 | push 안 함, 메모리 밖 파일 안 건드림, AI 안 부름 | `Unregister-ScheduledTask -TaskName KeepAiBrainMemorySnapshot -Confirm:$false` |
+| `KeepAiBrainWeeklyCheck` | 매주 월 09:30 (꺼져 있었으면 켠 뒤 바로) | 세 층을 점검해 `{KB}/_tools/reports/latest.md` 를 씀 | 아무것도 고치지 않음, AI 안 부름(토큰 0) | `Unregister-ScheduledTask -TaskName KeepAiBrainWeeklyCheck -Confirm:$false` |
+
+시각은 바꿀 수 있다고 말한다 (등록 스크립트의 `-DailyAt`·`-WeeklyAt`). macOS·Linux 는 지울 때 `crontab -e` 에서 그 줄을 지운다.
 
 답을 다 받으면 **설치 계획**을 표로 한 번 보여 주고("어디에 무엇을 만들고, 어떤 파일에 무엇을 더하나"), 사용자가 "진행" 하면 2장을 한다.
 
@@ -79,17 +88,17 @@ Windows: Bash heredoc 안에 백슬래시 경로를 넣지 않는다 — 조용�
 ### 2-3. 스킬
 
 1. Q4 에서 "덮어쓰기" 한 스킬은 먼저 기존 폴더를 `{CONFIG}/backups/keep-ai-brain/{이름}/` 으로 복사한 뒤 원래 폴더를 지운다. 그 자리에 이미 백업이 있으면(다시 설치할 때) 덮지 말고 `{이름}-{yyMMddHHmm}/` 으로 둔다 — 처음 원본을 잃지 않게. **`{CONFIG}/skills/` 안에 백업하지 않는다** — Claude Code 는 폴더 이름과 상관없이 `skills/` 아래의 SKILL.md 를 읽어서 같은 이름 스킬이 둘이 된다
-2. `{REPO}/skills/` 아래 다섯 폴더를 `{CONFIG}/skills/` 로 복사한다. Q4 에서 "건너뛰기" 한 것은 뺀다
-3. "이름 바꿔 설치" 한 것은 폴더 이름과 SKILL.md 의 `name:` 을 바꾸고, **부르는 곳도 같이 바꾼다**: 설치한 스킬 **전부(이름을 바꾼 스킬 자신의 description 포함)** 와 2-4 에서 붙일 CLAUDE.md 블록에서 `/{옛 이름}` 을 `/{새 이름}` 으로 (예 `/consult` → `/kab-consult`). 바꾼 뒤 설치한 파일들에 `/{옛 이름}` 이 남았는지 검색한다
+2. `{REPO}/skills/` 아래 두 폴더(kb-harvest·compact-confirm)를 `{CONFIG}/skills/` 로 복사한다. Q4 에서 "건너뛰기" 한 것은 뺀다
+3. "이름 바꿔 설치" 한 것은 폴더 이름과 SKILL.md 의 `name:` 을 바꾸고, **부르는 곳도 같이 바꾼다**: 설치한 스킬 **전부(이름을 바꾼 스킬 자신의 description 포함)** 와 2-4 에서 붙일 CLAUDE.md 블록에서 `/{옛 이름}` 을 `/{새 이름}` 으로 (예 `/kb-harvest` → `/kab-kb-harvest`). 바꾼 뒤 설치한 파일들에 `/{옛 이름}` 이 남았는지 검색한다
 
-확인: `{CONFIG}/skills/{이름}/SKILL.md` 다섯 개(또는 고른 만큼)가 있고, `{CONFIG}/skills/` 아래에 같은 `name:` 을 가진 SKILL.md 가 둘 이상 없다. 새 세션부터 `/consult` 등이 보인다 — 이름을 바꿨으면 바꾼 이름(`/kab-consult`)으로 보이고, `/consult` 는 사용자의 옛 스킬이다
+확인: `{CONFIG}/skills/{이름}/SKILL.md` 두 개(또는 고른 만큼)가 있고, `{CONFIG}/skills/` 아래에 같은 `name:` 을 가진 SKILL.md 가 둘 이상 없다. 새 세션부터 `/kb-harvest`·`/compact-confirm` 이 보인다 — 이름을 바꿨으면 바꾼 이름(`/kab-kb-harvest`)으로 보이고, 원래 이름은 사용자의 옛 스킬이다
 
 ### 2-4. CLAUDE.md
 
 1. `{CONFIG}/CLAUDE.md` 를 백업한다 (없으면 새로 만든다)
 2. `{REPO}/templates/CLAUDE.md` 의 내용을 맨 끝에 빈 줄 하나를 두고 붙인다 — 첫 줄 HTML 주석은 빼고, 「keep-ai-brain 경로」 표의 `(설치 때 채움)` 을 실제 `{KB}`·`{TASKS}`·`{MEMORY}` 경로(절대 경로·슬래시)로 바꾼다. 2-3 에서 이름을 바꾼 스킬이 있으면 블록 안의 `/{옛 이름}` 도 바꾼다
 3. 이미 `## keep-ai-brain` 절이 있으면 붙이지 말고 경로만 맞는지 본다
-4. 사용자 CLAUDE.md 에 이 블록과 부딪히는 규칙(예: "질문하지 말고 바로 해")이 있으면 붙이기 전에 보여 주고 어느 쪽을 따를지 묻는다
+4. 사용자 CLAUDE.md 에 이 블록과 부딪히는 규칙(예: "메모 파일을 만들지 마", "제안하지 말고 시킨 것만")이 있으면 붙이기 전에 보여 주고 어느 쪽을 따를지 묻는다
 
 확인: CLAUDE.md 에 경로 세 개가 실제 경로로 들어 있고, 그 폴더가 있다
 
@@ -154,7 +163,7 @@ node "{KB}/_tools/check-brain.cjs"
 | kb | {KB} | ✅ 점검 0건, 첫 커밋 {해시} |
 | 작업 폴더 | {TASKS} | ✅ |
 | 메모리 | {MEMORY} | ✅ git 시작 / 기존 메모리 유지 / ⚠️ 기존 메모리 문제 {N}건 남김 ({내용} — 사용자가 고치지 않기로 함) |
-| 스킬 | {CONFIG}/skills | ✅ 5개 (이름 바꿈: … / 건너뜀: … / 덮어씀: … — 옛 것은 {CONFIG}/backups/keep-ai-brain/) |
+| 스킬 | {CONFIG}/skills | ✅ 2개 (이름 바꿈: … / 건너뜀: … / 덮어씀: … — 옛 것은 {CONFIG}/backups/keep-ai-brain/) |
 | CLAUDE.md | {CONFIG}/CLAUDE.md | ✅ 블록 추가 (백업: …) |
 | hook | {CONFIG}/hooks/keep-ai-brain | ✅ test-guard 전부 통과 ({N}건) + 목록 상태 하나: 막는 것 {Q6 에서 남긴 것} / ⚠️ 차단 목록 비어 있음 — 지금은 자가시험 말고는 아무것도 막지 않아요 (settings.json 백업: …) |
 | 기존 hook | {CONFIG}/settings.json | 문제 없음 / ⚠️ {명령} — 가리키는 파일이 없음, 손대지 않음 (0장 11) |
@@ -163,7 +172,7 @@ node "{KB}/_tools/check-brain.cjs"
 
 **이제 이렇게 쓰세요**
 1. Claude Code 를 새로 시작하세요 (스킬·hook 이 새 세션부터 켜져요). 새 세션에서 "`echo keep-ai-brain-guard-selftest` 실행해 봐" 라고 하면 안전장치가 막는지 볼 수 있어요
-2. 평소처럼 요청하면 AI 가 먼저 질문해요. 바로 하고 싶으면 "바로 해"
+2. 평소처럼 일하면 돼요. 일이 끝나 가거나 다시 쓸 사실이 나오면 AI 가 "정리해 둘까요?", "kb 에 남겨 둘까요?" 라고 먼저 물어요
 3. 세션을 끝내거나 compact 하기 전에 "compact 해도 돼?" — 이 일의 진행 상황을 작업 폴더에 남기고, 다른 일에도 쓸 사실이 있으면 kb 에 넣을지(/kb-harvest) 이어서 물어봐요. 하나만 기억하면 돼요
 4. (Q7 에서 주간 점검을 골랐을 때만) 매주 월요일에 점검 리포트가 생겨요. 처리 안 된 문제가 있으면 다음 세션에서 AI 가 먼저 알려 줘요. "처리해줘" 하면 고치고, 경고는 고칠지 물어봐요
 
@@ -186,6 +195,7 @@ node "{KB}/_tools/check-brain.cjs"
 |---|---|---|
 | `hooks/guard.mjs` | `{CONFIG}/hooks/keep-ai-brain/guard.mjs` | 덮어쓴다 |
 | `skills/{이름}/` | `{CONFIG}/skills/{이름}/` | 덮어쓴다. 이름 바꿔 설치했으면 2-3 의 3번처럼 이름·부르는 곳도 바꾼다 |
+| (`{REPO}` 에서 없어진 스킬) | `{CONFIG}/skills/{그 이름}/` | 지울지 묻는다 — 사용자가 계속 쓰고 싶을 수 있다. 지우면 `{CONFIG}/backups/keep-ai-brain/` 로 옮긴다. 예: 2026-11 에 consult·criteria·critic 이 빠졌다 (keep-ai-brain 은 AI 뇌 관리만 다룬다) |
 | `kb-tools/*.cjs` | `{KB}/_tools/` | 덮어쓴다 |
 | `kb-tools/config.json` | `{KB}/_tools/config.json` | **덮어쓰지 않는다** (사용자 값). 새 키가 생겼으면 그 키만 node 로 더한다 |
 | `hooks/guard.config.json` | 같은 이름 | **덮어쓰지 않는다** (사용자가 고른 차단 목록) |
@@ -200,7 +210,7 @@ node "{KB}/_tools/check-brain.cjs"
 | 무엇 | 방법 |
 |---|---|
 | CLAUDE.md · settings.json | `{이름}.before-keep-ai-brain` 백업으로 되돌린다 |
-| 스킬 | `{CONFIG}/skills/` 에서 설치한 다섯 폴더를 지운다. 덮어쓴 스킬은 `{CONFIG}/backups/keep-ai-brain/{이름}/` 을 `{CONFIG}/skills/{이름}/` 으로 되돌린다 |
+| 스킬 | `{CONFIG}/skills/` 에서 설치한 두 폴더를 지운다. 덮어쓴 스킬은 `{CONFIG}/backups/keep-ai-brain/{이름}/` 을 `{CONFIG}/skills/{이름}/` 으로 되돌린다 |
 | hook | settings.json 에서 guard.mjs 항목을 빼고 `{CONFIG}/hooks/keep-ai-brain/` 를 지운다 |
 | 자동 점검 (Windows) | `Unregister-ScheduledTask -TaskName KeepAiBrainMemorySnapshot -Confirm:$false` · `KeepAiBrainWeeklyCheck` 도 같이 |
 | 자동 점검 (cron) | `crontab -e` 에서 두 줄을 지운다 |

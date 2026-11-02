@@ -83,7 +83,6 @@ purpose: 재사용 가능한 지식의 목차. **새 문서를 쓰기 전 반드
 | 문서 | 요약 |
 |---|---|
 | [team-process.md](ops/team-process.md) | 작업 방식 — 브랜치·커밋·배포·보고 규칙. 커밋·배포 전에 |
-| [review-checklist.md](ops/review-checklist.md) | 변경 검토 위험 패턴(/critic 기준) — 심각도별 신호·검색 단서 |
 | [open-questions.md](ops/open-questions.md) | **자동 생성** — [확인필요] 질문 목록. 사용자에게 몰아서 물을 때 |
 
 > 이슈 대장을 켜면(`_tools/config.json` issues.enabled) `ops/issues.md` 가 자동으로 생긴다. 켜면 여기에 한 줄 더한다.
